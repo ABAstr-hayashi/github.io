@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>株式会社アバスター | 迅速性と安全性を両立するITサポート</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@300;400;600;700;800&display=swap');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --red: #DC0714;
+    --red-dark: #A00510;
+    --dark: #0A0A0A;
+    --dark-2: #111111;
+    --dark-3: #1A1A1A;
+    --gray: #888888;
+    --light: #F0F0F0;
+    --white: #FFFFFF;
+    --blue: #6AAFE6;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    background: var(--dark);
+    color: var(--light);
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 20px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.4s, padding 0.4s;
+  }
+
+  nav.scrolled {
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(20px);
+    padding: 12px 60px;
+    border-bottom: 1px solid rgba(220, 7, 20, 0.2);
+  }
+
+  .nav-logo img {
+    height: 36px;
+    filter: brightness(1.1);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--light);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    position: relative;
+    transition: color 0.3s;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--red);
+    transition: width 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 1001;
+  }
+
+  .hamburger span {
+    width: 28px;
+    height: 2px;
+    background: var(--light);
+    transition: 0.3s;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 700px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url('images/vehicle.jpg') center center / cover no-repeat;
+    filter: brightness(0.3);
+    transform: scale(1.1);
+    animation: heroZoom 20s ease-in-out infinite alternate;
+  }
+
+  @keyframes heroZoom {
+    0% { transform: scale(1.1); }
+    100% { transform: scale(1.0); }
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(10, 10, 10, 0.9) 0%,
+      rgba(10, 10, 10, 0.4) 50%,
+      rgba(220, 7, 20, 0.15) 100%
+    );
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 80px;
+    max-width: 900px;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--red);
+    border: 1px solid var(--red);
+    padding: 6px 20px;
+    margin-bottom: 30px;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+  }
+
+  .hero h1 {
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+  }
+
+  .hero h1 .accent { color: var(--red); }
+
+  .hero-sub {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--gray);
+    max-width: 600px;
+    line-height: 1.9;
+    margin-bottom: 40px;
+    animation: fadeInUp 0.8s ease-out 0.6s both;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--red);
+    color: var(--white);
+    text-decoration: none;
+    padding: 16px 40px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    transition: background 0.3s, transform 0.3s;
+    animation: fadeInUp 0.8s ease-out 0.8s both;
+  }
+
+  .hero-cta:hover {
+    background: var(--red-dark);
+    transform: translateY(-2px);
+  }
+
+  .hero-cta svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s;
+  }
+
+  .hero-cta:hover svg { transform: translateX(4px); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: fadeInUp 0.8s ease-out 1s both;
+  }
+
+  .hero-scroll span {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gray);
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--red), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 1; height: 40px; }
+    50% { opacity: 0.3; height: 20px; }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== SECTIONS ===== */
+  section {
+    padding: 120px 80px;
+  }
+
+  .section-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  .section-desc {
+    font-size: 16px;
+    color: var(--gray);
+    max-width: 640px;
+    line-height: 1.9;
+  }
+
+  /* ===== FEATURES ===== */
+  .features {
+    background: var(--dark-2);
+  }
+
+  .features-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .features-header .section-desc {
+    margin: 0 auto;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .feature-card {
+    background: var(--dark-3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 48px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s, border-color 0.4s;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(220, 7, 20, 0.3);
+  }
+
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--red);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+  }
+
+  .feature-card:hover::before { transform: scaleX(1); }
+
+  .feature-num {
+    font-size: 64px;
+    font-weight: 900;
+    color: rgba(220, 7, 20, 0.1);
+    line-height: 1;
+    margin-bottom: 20px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .feature-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .feature-card .sub {
+    font-size: 13px;
+    color: var(--red);
+    font-weight: 500;
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+  }
+
+  .feature-card p {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.8;
+  }
+
+  /* ===== ABOUT / VEHICLE ===== */
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .split-img {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .split-img img {
+    width: 100%;
+    height: 700px;
+    object-fit: cover;
+    object-position: center center;
+    filter: brightness(0.95);
+    image-rendering: auto;
+    transition: transform 0.6s;
+  }
+
+  .split-img:hover img {
+    transform: scale(1.05);
+  }
+
+  .split-img::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to top, var(--dark), transparent);
+  }
+
+  .about { background: var(--dark); }
+
+  .vehicle-section {
+    background: var(--dark-2);
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .stat {
+    text-align: center;
+    padding: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .stat-num {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--red);
+    font-family: 'Inter', sans-serif;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--gray);
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ===== SAFETY ===== */
+  .safety-list {
+    list-style: none;
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .safety-list li {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 15px;
+    padding: 16px 20px;
+    background: var(--dark-3);
+    border-left: 3px solid var(--red);
+  }
+
+  .safety-list li .icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: var(--red);
+  }
+
+  /* ===== PROFILE ===== */
+  .profile { background: var(--dark); }
+
+  .timeline {
+    margin-top: 40px;
+    position: relative;
+    padding-left: 32px;
+    border-left: 2px solid rgba(220, 7, 20, 0.3);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: 28px;
+    padding-left: 24px;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -38px;
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    background: var(--red);
+    border-radius: 50%;
+  }
+
+  .timeline-year {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--red);
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.05em;
+  }
+
+  .timeline-text {
+    font-size: 14px;
+    color: var(--gray);
+    margin-top: 4px;
+  }
+
+  /* ===== COMPANY INFO ===== */
+  .info-section { background: var(--dark-2); }
+
+  .info-table {
+    margin-top: 40px;
+    max-width: 700px;
+  }
+
+  .info-row {
+    display: flex;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 20px 0;
+  }
+
+  .info-label {
+    width: 180px;
+    flex-shrink: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.05em;
+  }
+
+  .info-value {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.8;
+  }
+
+  /* ===== CTA ===== */
+  .cta-section {
+    background: linear-gradient(135deg, var(--dark) 0%, var(--dark-3) 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(220, 7, 20, 0.06), transparent 60%);
+  }
+
+  .cta-section .section-title {
+    position: relative;
+  }
+
+  .cta-section .section-desc {
+    margin: 20px auto 40px;
+    position: relative;
+  }
+
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 40px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer img { height: 28px; }
+
+  footer p {
+    font-size: 12px;
+    color: var(--gray);
+    letter-spacing: 0.05em;
+  }
+
+  /* ===== REVEAL ANIMATION ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1024px) {
+    section { padding: 80px 40px; }
+    nav { padding: 16px 40px; }
+    nav.scrolled { padding: 12px 40px; }
+    .hero-content { padding: 0 40px; }
+    .features-grid { grid-template-columns: 1fr; max-width: 500px; }
+    .split { grid-template-columns: 1fr; gap: 40px; }
+    .split-img img { height: 500px; }
+    .stats { grid-template-columns: repeat(3, 1fr); }
+    footer { padding: 40px; }
+  }
+
+  @media (max-width: 768px) {
+    section { padding: 60px 24px; }
+    nav { padding: 14px 24px; }
+    nav.scrolled { padding: 10px 24px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 10, 0.98);
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+      z-index: 1000;
+    }
+    .nav-links.open a { font-size: 18px; }
+    .hero-content { padding: 0 24px; }
+    .hero-sub { font-size: 15px; }
+    .stats { grid-template-columns: 1fr; }
+    .info-row { flex-direction: column; gap: 4px; }
+    .info-label { width: auto; }
+    footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo"><img src="images/logo.png" alt="ABastr"></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#vehicle">Vehicle</a></li>
+    <li><a href="#profile">Profile</a></li>
+    <li><a href="#company">Company</a></li>
+    <li><a href="#contact">Message</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">IT Help Desk Express</div>
+    <h1>迅速性と安全性を<br><span class="accent">両立する</span>ITサポート</h1>
+    <p class="hero-sub">中小企業・士業事務所様を中心に、突発的なシステム障害に対してオートバイによる機動力で迅速に駆け付け。確実なITサポートを提供します。</p>
+    <a href="#services" class="hero-cta">
+      サービスを見る
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="features" id="services">
+  <div class="features-header reveal">
+    <div class="section-tag">Our Services</div>
+    <h2 class="section-title">主要事業</h2>
+    <p class="section-desc">ITの「困った」に、最速で応える。3つの柱でお客様のビジネスを支えます。</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <div class="feature-num">01</div>
+      <h3>ITヘルプデスク<br>エクスプレスサービス</h3>
+      <div class="sub">Motorcycle Express Support</div>
+      <p>オートバイによる客先駆け付け対応。都市部の渋滞や駐車制約の影響を受けにくい機動力を活かし、緊急時でも迅速に現地へ到着できる体制を整えています。</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-num">02</div>
+      <h3>ITシステム調達の<br>最適化支援</h3>
+      <div class="sub">Procurement Optimization</div>
+      <p>製品選定・構成設計・コスト最適化。業務内容に即した最適な構成を設計し、無駄のないIT投資を実現します。</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-num">03</div>
+      <h3>ファイルサーバー<br>（NAS）構築・運用</h3>
+      <div class="sub">NAS Infrastructure</div>
+      <p>バックアップ設計・冗長化構成・運用保守。データ保全と業務継続を重視した設計を行います。</p>
+    </div>
+  </div>
+</section>
+
+<!-- VEHICLE -->
+<section class="vehicle-section" id="vehicle">
+  <div class="split">
+    <div class="split-img reveal">
+      <img src="images/vehicle-v.jpg" alt="業務車両">
+    </div>
+    <div class="reveal">
+      <div class="section-tag">Express Vehicle</div>
+      <h2 class="section-title">安全運行と<br>車両選定方針</h2>
+      <p class="section-desc">当社の訪問対応は、迅速性と同時に安全性を最優先としています。代表者による一貫対応体制で運営しており、車両事故はそのまま業務停止に直結します。安全性能への投資は、顧客責任を果たし続けるための合理的な経営判断です。</p>
+      <ul class="safety-list">
+        <li>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          安全装備を備えた車両の採用
+        </li>
+        <li>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          法定点検および定期点検の実施
+        </li>
+        <li>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          任意保険への加入・法令遵守の徹底
+        </li>
+        <li>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          運行記録の管理（業務専用車両）
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROFILE -->
+<section class="profile" id="profile">
+  <div class="split">
+    <div class="reveal">
+      <div class="section-tag">Representative</div>
+      <h2 class="section-title">代表者紹介</h2>
+      <p class="section-desc">代表取締役 林 秀行。1993年より電機メーカー、IT企業での経験を経て、2017年に株式会社アバスターを設立。中小企業に寄り添った一貫対応で、訪問300回以上の実績。</p>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-num">300+</div>
+          <div class="stat-label">訪問回数</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">30+</div>
+          <div class="stat-label">年の経験</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">2017</div>
+          <div class="stat-label">設立年</div>
+        </div>
+      </div>
+      <div class="timeline" style="margin-top: 40px;">
+        <div class="timeline-item">
+          <div class="timeline-year">1993</div>
+          <div class="timeline-text">都内電機メーカー入社</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2000</div>
+          <div class="timeline-text">士業協同組合主催 パソコン講座講師</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2001</div>
+          <div class="timeline-text">都内IT企業へ転職 オープンソース開発に従事</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2017</div>
+          <div class="timeline-text">株式会社アバスター設立</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2018</div>
+          <div class="timeline-text">中小企業向けヘルプデスク業務開始</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2020</div>
+          <div class="timeline-text">エクスプレスサポート開始</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2026</div>
+          <div class="timeline-text">訪問300回達成</div>
+        </div>
+      </div>
+    </div>
+    <div class="split-img reveal">
+      <img src="images/representative.png" alt="代表者 林 秀行">
+    </div>
+  </div>
+</section>
+
+<!-- COMPANY INFO -->
+<section class="info-section" id="company">
+  <div class="reveal">
+    <div class="section-tag">Company</div>
+    <h2 class="section-title">会社概要</h2>
+  </div>
+  <div class="info-table reveal">
+    <div class="info-row">
+      <div class="info-label">会社名</div>
+      <div class="info-value">株式会社アバスター</div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">本店所在地</div>
+      <div class="info-value">〒164-0011 東京都中野区中央4-13-6</div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">代表者</div>
+      <div class="info-value">林 秀行</div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">設立</div>
+      <div class="info-value">2017年10月</div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">資本金</div>
+      <div class="info-value">500千円</div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">取引金融機関</div>
+      <div class="info-value">みずほ銀行 中野支店<br>三菱UFJ銀行 中野支店<br>三井住友銀行 中野支店<br>西武信用金庫 三鷹支店</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="reveal">
+    <div class="section-tag">Contact</div>
+    <h2 class="section-title">お客様へ</h2>
+    <p class="section-desc">迅速さだけでなく、安全・継続・責任を重視したITサポートを提供すること。<br>それが、株式会社アバスターの基本姿勢です。<br>今後も、確実で持続可能なサービス体制を維持してまいります。</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <img src="images/logo.png" alt="ABastr">
+  <p>&copy; 2017-2026 株式会社アバスター All Rights Reserved.</p>
+</footer>
+
+<script>
+// Scroll nav
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Hamburger
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
